@@ -1,4 +1,8 @@
 ProjectJynx::Application.routes.draw do
+  get "categories/new"
+  get "categories/edit"
+  get "categories/show"
+  get "categories/index"
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
 

@@ -1,0 +1,198 @@
+  [1m[36m (156.2ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35m (142.3ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20130715125731)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.5ms)[0m  [1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "email" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20130715125731"]]
+  [1m[36m (140.0ms)[0m  [1mcommit transaction[0m
+Migrating to AddIndexToUsersEmail (20130716162036)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20130716162036"]]
+  [1m[36m (131.1ms)[0m  [1mcommit transaction[0m
+Migrating to AddPasswordDigestToUsers (20130716162952)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "users" ADD "password_digest" varchar(255)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20130716162952"]]
+  [1m[36m (122.7ms)[0m  [1mcommit transaction[0m
+Migrating to AddRememberTokenToUsers (20130717160809)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "users" ADD "remember_token" varchar(255)[0m
+  [1m[35m (0.2ms)[0m  CREATE INDEX "index_users_on_remember_token" ON "users" ("remember_token")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20130717160809"]]
+  [1m[35m (147.2ms)[0m  commit transaction
+Migrating to AddAdminToUsers (20130718160701)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  ALTER TABLE "users" ADD "admin" boolean DEFAULT 'f'
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20130718160701"]]
+  [1m[35m (149.8ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+DEPRECATION WARNING: You didn't set config.secret_key_base. Read the upgrade documentation to learn more about this new config option. (called from service at /home/pariszx/.rvm/rubies/ruby-2.0.0-p247/lib/ruby/2.0.0/webrick/httpserver.rb:138)
+
+
+Started GET "/" for 127.0.0.1 at 2013-11-05 00:55:46 +0200
+Processing by StaticPagesController#home as HTML
+  Rendered static_pages/home.html.erb within layouts/application (5.4ms)
+Completed 500 Internal Server Error in 34ms
+
+ActionView::Template::Error (`attr_accessible` is extracted out of Rails into a gem. Please use new recommended protection model for params(strong_parameters) or add `protected_attributes` to your Gemfile to use old one.):
+     5:   		This is the home page for the
+     6:   		Jynx web application, currently under construction.
+     7:   	</h2>
+     8:   	<% if !signed_in? %>
+     9:   	<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+    10:   	<% end %>
+    11: </div>
+  app/models/user.rb:13:in `<class:User>'
+  app/models/user.rb:12:in `<top (required)>'
+  app/helpers/sessions_helper.rb:18:in `current_user'
+  app/helpers/sessions_helper.rb:10:in `signed_in?'
+  app/views/static_pages/home.html.erb:8:in `_app_views_static_pages_home_html_erb__1557587052962303526_24264100'
+
+
+  Rendered /home/pariszx/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.5ms)
+  Rendered /home/pariszx/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.4ms)
+  Rendered /home/pariszx/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (12.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-11-05 00:57:47 +0200
+Processing by StaticPagesController#home as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."remember_token" = 'da39a3ee5e6b4b0d3255bfef95601890afd80709' LIMIT 1[0m
+  Rendered static_pages/home.html.erb within layouts/application (95.6ms)
+  Rendered layouts/_shim.html.erb (0.4ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."remember_token" = 'da39a3ee5e6b4b0d3255bfef95601890afd80709' LIMIT 1
+  Rendered layouts/_header.html.erb (2.2ms)
+  Rendered layouts/_footer.html.erb (0.8ms)
+Completed 200 OK in 3700ms (Views: 3697.5ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/sessions.css?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/bootstrap-transition.js?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/bootstrap-affix.js?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/bootstrap-alert.js?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/bootstrap-button.js?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/bootstrap-carousel.js?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/bootstrap-collapse.js?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/bootstrap-dropdown.js?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/bootstrap-modal.js?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/bootstrap-scrollspy.js?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/bootstrap-tab.js?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/bootstrap-tooltip.js?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/bootstrap-popover.js?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/bootstrap-typeahead.js?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/sessions.js?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/assets/rails.png" for 127.0.0.1 at 2013-11-05 00:57:51 +0200
+
+
+Started GET "/signup" for 127.0.0.1 at 2013-11-05 00:57:54 +0200
+Processing by UsersController#new as HTML
+  Rendered shared/_error_messages.html.erb (2.0ms)
+  Rendered users/new.html.erb within layouts/application (167.5ms)
+  Rendered layouts/_shim.html.erb (0.1ms)
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."remember_token" = 'da39a3ee5e6b4b0d3255bfef95601890afd80709' LIMIT 1[0m
+  Rendered layouts/_header.html.erb (1.6ms)
+  Rendered layouts/_footer.html.erb (0.2ms)
+Completed 200 OK in 183ms (Views: 181.9ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2013-11-05 00:58:07 +0200
+Processing by UsersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"74uUN2g6I4fE2/93qDFuDU+PGGznxKOwpKIUFcBF5X0=", "user"=>{"name"=>"ParisZX", "email"=>"parad2000@hotmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Create my account"}
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('parad2000@hotmail.com') LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  Rendered shared/_error_messages.html.erb (0.8ms)
+  Rendered users/new.html.erb within layouts/application (4.4ms)
+  Rendered layouts/_shim.html.erb (0.1ms)
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."remember_token" = 'da39a3ee5e6b4b0d3255bfef95601890afd80709' LIMIT 1[0m
+  Rendered layouts/_header.html.erb (1.5ms)
+  Rendered layouts/_footer.html.erb (0.2ms)
+Completed 200 OK in 162ms (Views: 18.1ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2013-11-05 00:58:14 +0200
+Processing by UsersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"74uUN2g6I4fE2/93qDFuDU+PGGznxKOwpKIUFcBF5X0=", "user"=>{"name"=>"ParisZX", "email"=>"parad2000@hotmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Create my account"}
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('parad2000@hotmail.com') LIMIT 1[0m
+Binary data inserted for `string` type on column `password_digest`
+  [1m[35mSQL (44.1ms)[0m  INSERT INTO "users" ("created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Mon, 04 Nov 2013 22:58:14 UTC +00:00], ["email", "parad2000@hotmail.com"], ["name", "ParisZX"], ["password_digest", "$2a$10$hW1bweufkZ5onLEeWZU9w.Dp1WV9OPbbJZ.pEQHcvjBW5RnCpD6G2"], ["remember_token", "8d66d84bedd9838dcbb24faf7a6feb701346d56a"], ["updated_at", Mon, 04 Nov 2013 22:58:14 UTC +00:00]]
+  [1m[36m (155.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mUPDATE "users" SET "remember_token" = ?, "updated_at" = ? WHERE "users"."id" = 1[0m  [["remember_token", "0a82f3ac18f60a81179ee822fcadd997ce2e2506"], ["updated_at", Mon, 04 Nov 2013 22:58:14 UTC +00:00]]
+  [1m[35m (130.5ms)[0m  commit transaction
+Redirected to http://localhost:3000/users/1
+Completed 302 Found in 420ms (ActiveRecord: 330.9ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2013-11-05 00:58:14 +0200
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  Rendered users/show.html.erb within layouts/application (0.8ms)
+  Rendered layouts/_shim.html.erb (0.1ms)
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."remember_token" = '0a82f3ac18f60a81179ee822fcadd997ce2e2506' LIMIT 1
+  Rendered layouts/_header.html.erb (2.4ms)
+  Rendered layouts/_footer.html.erb (0.2ms)
+Completed 200 OK in 27ms (Views: 24.9ms | ActiveRecord: 0.5ms)
